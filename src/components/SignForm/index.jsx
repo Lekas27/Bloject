@@ -1,19 +1,21 @@
-import { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import { useState, useContext } from "react";
+import { TextField, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { authService } from "../../service/auth";
-import jwtDecode from "jwt-decode";
 
-const { getSignedInUser } = authService;
+import { UserContext } from "../../contexts/UserContext";
 
-function SignUpForm() {
+const { signedInUser } = authService;
+
+export const SignUpForm = () => {
+  const { handleUserLogin } = useContext(UserContext);
   const [data, setData] = useState({
     username: "",
     first_name: "",
-    lastName: "",
+    last_name: "",
     password: "",
   });
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({
@@ -24,14 +26,13 @@ function SignUpForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await getSignedInUser(data);
+      const response = await signedInUser(data);
 
-      const decodedToken = jwtDecode(response.token);
+      console.log(response);
+      handleUserLogin(response.tokenkey);
 
-      console.log(decodedToken);
-
+      navigate("/");
       setData({
         username: "",
         first_name: "",
@@ -92,6 +93,4 @@ function SignUpForm() {
       </form>
     </div>
   );
-}
-
-export default SignUpForm;
+};

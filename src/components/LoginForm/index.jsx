@@ -1,16 +1,19 @@
-import { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { TextField, Button } from "@mui/material";
+
 import { authService } from "../../service/auth";
-import jwtDecode from "jwt-decode";
+import { UserContext } from "../../contexts/UserContext";
 
 const { getLoggedInUser } = authService;
 
-function LoginForm() {
+export const LoginForm = () => {
+  const { handleUserLogin } = useContext(UserContext);
   const [data, setData] = useState({
     username: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -26,9 +29,8 @@ function LoginForm() {
     try {
       const response = await getLoggedInUser(data);
 
-      const decodedToken = jwtDecode(response.token);
-
-      console.log(decodedToken);
+      handleUserLogin(response.tokenKey);
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
@@ -65,6 +67,4 @@ function LoginForm() {
       </form>
     </div>
   );
-}
-
-export default LoginForm;
+};

@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, Drawer, List, ListItem, ListItemText } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
-import MenuIcon from "@mui/icons-material/Menu";
-import BlogIcon from "@mui/icons-material/Book";
+import { Menu as MenuIcon, Book as BlogIcon } from "@mui/icons-material";
 
 export const AppLayout = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -48,10 +47,10 @@ export const AppLayout = () => {
             <NavLink to="/createpost" className={handleLinkClassName}>
               <Button>Create Post</Button>
             </NavLink>
-            <NavLink to="/signUp" className={handleLinkClassName}>
+            <NavLink to="/sign-up" className={handleLinkClassName}>
               <Button variant="contained">Sign Up</Button>
             </NavLink>
-            <NavLink to="/logIn" className={handleLinkClassName}>
+            <NavLink to="/log-in" className={handleLinkClassName}>
               <Button variant="outlined">Log In</Button>
             </NavLink>
           </nav>
@@ -80,12 +79,12 @@ export const AppLayout = () => {
                 <ListItemText primary="Create Post" />
               </ListItem>
             </NavLink>
-            <NavLink to="/signUp" className={handleLinkClassName}>
+            <NavLink to="/sign-up" className={handleLinkClassName}>
               <ListItem>
                 <ListItemText primary="Sign Up" />
               </ListItem>
             </NavLink>
-            <NavLink to="/logIn" className={handleLinkClassName}>
+            <NavLink to="/log-in" className={handleLinkClassName}>
               <ListItem>
                 <ListItemText primary="Log In" />
               </ListItem>
