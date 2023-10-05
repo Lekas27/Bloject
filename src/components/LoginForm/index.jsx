@@ -29,7 +29,7 @@ export const LoginForm = () => {
     try {
       const response = await getLoggedInUser(data);
 
-      handleUserLogin(response.tokenKey);
+      handleUserLogin(response.tokenkey);
       navigate("/");
     } catch (error) {
       console.error(error);

@@ -14,6 +14,7 @@ export const UserProvider = ({ children }) => {
   );
 
   const handleUserLogin = (token) => {
+    console.log(token);
     const userObject = jwtDecode(token);
 
     setUser(userObject);
