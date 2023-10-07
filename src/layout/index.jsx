@@ -49,7 +49,7 @@ export const AppLayout = () => {
             <NavLink to="/createpost" className={handleLinkClassName}>
               <Button>Create Post</Button>
             </NavLink>
-            <NavLink to="/log-in" className={handleLinkClassName}>
+            <NavLink to="/profile" className={handleLinkClassName}>
               <Button>{user?.username}</Button>
             </NavLink>
             <Button
@@ -87,9 +87,9 @@ export const AppLayout = () => {
             </NavLink>
 
             <ListItem>
-              <ListItemText primary={`Logged in as: ${user?.username}`} />
+              <ListItemText primary={user?.username} />
             </ListItem>
-            <NavLink to="/log-in" className={handleLinkClassName}>
+            <NavLink to="/profile" className={handleLinkClassName}>
               <ListItem>
                 <ListItemText primary="Log Out" onClick={handleUserLogout} />
               </ListItem>

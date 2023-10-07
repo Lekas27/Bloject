@@ -6,6 +6,11 @@ class AuthService {
 
   getLoggedInUser = async (token) => await callApi({ url: `/login/${token}/` });
 
+  getUser = async (id) => await callApi({ url: `/Users/${id}/` });
+
+  editUser = async (id, data) =>
+    await callApi({ url: `/Users/${id}/`, method: "PUT", data });
+
   signedInUser = async (data) =>
     await callApi({ url: "/register/", method: "POST", data });
 

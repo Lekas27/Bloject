@@ -1,12 +1,13 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute, PublicRoute } from "./Routes";
-import { AppLayout } from "../layout";
 import { HomePage } from "../pages/home";
 import { CreatePost } from "../pages/createpost";
 import { Blog } from "../pages/blog";
 import { SignUp } from "../pages/auth/sign-up";
 import { LogIn } from "../pages/auth/log-in";
 import { SingleBlog } from "../pages/single-blog";
+import { ProfilePage } from "../pages/profile";
+import { AppLayout } from "../layout";
 
 export const AppRouter = () => {
   const router = createBrowserRouter([
@@ -19,6 +20,7 @@ export const AppRouter = () => {
           element: <HomePage />,
           exact: true,
         },
+        { path: "profile", element: <ProfilePage /> },
         { path: "createpost", element: <CreatePost /> },
         { path: "blogs", element: <Blog /> },
         { path: "blogs/:id", element: <SingleBlog /> },
