@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Button, Drawer, List, ListItem, ListItemText } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
 import { Menu as MenuIcon, Book as BlogIcon } from "@mui/icons-material";
+import { UserContext } from "../contexts/UserContext";
 
 export const AppLayout = () => {
+  const { handleUserLogout } = useContext(UserContext);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   const handleLinkClassName = ({ isActive }) => (isActive ? "" : "");
-
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
@@ -47,12 +48,13 @@ export const AppLayout = () => {
             <NavLink to="/createpost" className={handleLinkClassName}>
               <Button>Create Post</Button>
             </NavLink>
-            <NavLink to="/sign-up" className={handleLinkClassName}>
-              <Button variant="contained">Sign Up</Button>
-            </NavLink>
-            <NavLink to="/log-in" className={handleLinkClassName}>
-              <Button variant="outlined">Log In</Button>
-            </NavLink>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleUserLogout}
+            >
+              Log Out
+            </Button>
           </nav>
         )}
       </div>
@@ -79,14 +81,10 @@ export const AppLayout = () => {
                 <ListItemText primary="Create Post" />
               </ListItem>
             </NavLink>
-            <NavLink to="/sign-up" className={handleLinkClassName}>
-              <ListItem>
-                <ListItemText primary="Sign Up" />
-              </ListItem>
-            </NavLink>
+
             <NavLink to="/log-in" className={handleLinkClassName}>
               <ListItem>
-                <ListItemText primary="Log In" />
+                <ListItemText primary="Log Out" onClick={handleUserLogout} />
               </ListItem>
             </NavLink>
           </List>

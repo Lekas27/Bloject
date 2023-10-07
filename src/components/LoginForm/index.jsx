@@ -5,16 +5,17 @@ import { TextField, Button } from "@mui/material";
 import { authService } from "../../service/auth";
 import { UserContext } from "../../contexts/UserContext";
 
-const { getLoggedInUser } = authService;
+const { logInUser } = authService;
 
 export const LoginForm = () => {
+  const [loading, setLoading] = useState(false);
   const { handleUserLogin } = useContext(UserContext);
+
   const [data, setData] = useState({
     username: "",
     password: "",
   });
   const navigate = useNavigate();
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setData({
@@ -24,15 +25,17 @@ export const LoginForm = () => {
   };
 
   const handleSubmit = async (event) => {
+    setLoading(true);
     event.preventDefault();
 
     try {
-      const response = await getLoggedInUser(data);
-
+      const response = await logInUser(data);
       handleUserLogin(response.tokenkey);
       navigate("/");
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -46,6 +49,7 @@ export const LoginForm = () => {
           name="username"
           value={data.username}
           onChange={handleChange}
+          disabled={loading}
           fullWidth
           required
         />
@@ -56,11 +60,18 @@ export const LoginForm = () => {
           name="password"
           value={data.password}
           onChange={handleChange}
+          disabled={loading}
           fullWidth
           required
         />
         <div className="flex justify-center">
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={loading}
+            loading={loading}
+          >
             Log In
           </Button>
         </div>

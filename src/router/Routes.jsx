@@ -5,11 +5,11 @@ import { UserContext } from "../contexts/UserContext";
 export const ProtectedRoute = ({ element }) => {
   const { user } = useContext(UserContext);
 
-  return user?.userId ? <>{element}</> : <Navigate to="/log-in" />;
+  return user?.user ? <>{element}</> : <Navigate to="/log-in" />;
 };
 
 export const PublicRoute = ({ element }) => {
   const { user } = useContext(UserContext);
 
-  return user?.userId ? <Navigate to="/" /> : <>{element}</>;
+  return user?.user ? <Navigate to="/" /> : <>{element}</>;
 };

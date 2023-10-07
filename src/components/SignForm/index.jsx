@@ -1,14 +1,12 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { authService } from "../../service/auth";
 
-import { UserContext } from "../../contexts/UserContext";
-
 const { signedInUser } = authService;
 
 export const SignUpForm = () => {
-  const { handleUserLogin } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     username: "",
     first_name: "",
@@ -16,6 +14,7 @@ export const SignUpForm = () => {
     password: "",
   });
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({
@@ -25,22 +24,16 @@ export const SignUpForm = () => {
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
-      const response = await signedInUser(data);
+      await signedInUser(data);
 
-      console.log(response);
-      handleUserLogin(response.tokenkey);
-
-      navigate("/");
-      setData({
-        username: "",
-        first_name: "",
-        last_name: "",
-        password: "",
-      });
+      navigate("/log-in");
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,6 +46,7 @@ export const SignUpForm = () => {
           name="username"
           value={data.username}
           onChange={handleChange}
+          disabled={loading}
           fullWidth
           required
         />
@@ -62,6 +56,7 @@ export const SignUpForm = () => {
           name="first_name"
           value={data.first_name}
           onChange={handleChange}
+          disabled={loading}
           fullWidth
           required
         />
@@ -71,10 +66,10 @@ export const SignUpForm = () => {
           name="last_name"
           value={data.last_name}
           onChange={handleChange}
+          disabled={loading}
           fullWidth
           required
         />
-
         <TextField
           label="Password"
           variant="outlined"
@@ -82,11 +77,18 @@ export const SignUpForm = () => {
           name="password"
           value={data.password}
           onChange={handleChange}
+          disabled={loading}
           fullWidth
           required
         />
         <div className="flex justify-center">
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={loading}
+            loading={loading}
+          >
             Sign Up
           </Button>
         </div>
