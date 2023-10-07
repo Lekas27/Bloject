@@ -5,7 +5,7 @@ import { Menu as MenuIcon, Book as BlogIcon } from "@mui/icons-material";
 import { UserContext } from "../contexts/UserContext";
 
 export const AppLayout = () => {
-  const { handleUserLogout } = useContext(UserContext);
+  const { user, handleUserLogout } = useContext(UserContext);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -31,7 +31,7 @@ export const AppLayout = () => {
       <div className="flex justify-between items-center m-1">
         <div className="flex items-center">
           <BlogIcon className="w-8 h-8 mr-2 text-blue-500" />
-          <h3 className="text-xl font-bold text-blue-500">My Blog</h3>
+          <h3 className="text-xl font-bold text-blue-500">Blogbook</h3>
         </div>
         {isMobile ? (
           <Button onClick={toggleDrawer}>
@@ -47,6 +47,9 @@ export const AppLayout = () => {
             </NavLink>
             <NavLink to="/createpost" className={handleLinkClassName}>
               <Button>Create Post</Button>
+            </NavLink>
+            <NavLink to="/log-in" className={handleLinkClassName}>
+              <Button>{user?.username}</Button>
             </NavLink>
             <Button
               variant="contained"
@@ -82,6 +85,9 @@ export const AppLayout = () => {
               </ListItem>
             </NavLink>
 
+            <ListItem>
+              <ListItemText primary={`Logged in as: ${user?.username}`} />
+            </ListItem>
             <NavLink to="/log-in" className={handleLinkClassName}>
               <ListItem>
                 <ListItemText primary="Log Out" onClick={handleUserLogout} />

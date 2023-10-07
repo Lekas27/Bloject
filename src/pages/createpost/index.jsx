@@ -8,7 +8,7 @@ export const CreatePost = () => {
         variant="h3"
         className="text-blue-600 rounded-md py-2 px-4 font-bold text-center"
       >
-        Create Your Blog:
+        Create Your Blog
       </Typography>
       <div>
         <BlogForm />

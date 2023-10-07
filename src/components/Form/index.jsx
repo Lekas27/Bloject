@@ -1,62 +1,43 @@
-import { useState, useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import { useState } from "react";
+import { TextField, Button } from "@mui/material";
 import { blogService } from "../../service/blogs";
 
-const { createBlog, getAllBlogs } = blogService;
+const { createBlog } = blogService;
 
 export const BlogForm = () => {
-  const [formData, setFormData] = useState({
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({
     title: "",
     content: "",
-    author: "",
   });
-
-  const [authors, setAuthors] = useState([]);
-
-  useEffect(() => {
-    const fetchAuthors = async () => {
-      try {
-        const blogPosts = await getAllBlogs();
-        const uniqueAuthors = [
-          ...new Set(blogPosts.map((post) => post.author)), // Use author
-        ];
-        setAuthors(uniqueAuthors);
-      } catch (error) {
-        console.error("Error fetching authors:", error);
-      }
-    };
-
-    fetchAuthors();
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
+    setData((prevData) => ({
+      ...prevData,
       [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
 
     try {
-      console.log("Form Data Submitted:", formData);
+      console.log("Form Data Submitted:", data);
 
-      formData.author = parseInt(formData.author);
-
-      await createBlog(formData);
+      await createBlog(data);
 
       console.log("Blog created successfully!");
 
-      setFormData({
+      setData({
         title: "",
         content: "",
-        author: "",
       });
     } catch (error) {
       console.error("Error creating blog:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,41 +48,29 @@ export const BlogForm = () => {
           label="Title"
           variant="outlined"
           name="title"
-          value={formData.title}
+          value={data.title}
           onChange={handleChange}
           className="w-full"
+          disabled={loading}
           required
         />
         <TextField
           label="Content"
           variant="outlined"
           name="content"
-          value={formData.content}
+          value={data.content}
           onChange={handleChange}
           className="w-full"
+          disabled={loading}
           required
         />
-        <label htmlFor="author">Author</label>
-        <select
-          id="author"
-          name="author"
-          value={formData.author}
-          onChange={handleChange}
-          className="w-full"
-          required
-        >
-          <option value="">Select an author</option>
-          {authors.map((author) => (
-            <option key={author} value={author}>
-              {author}
-            </option>
-          ))}
-        </select>
+
         <Button
           variant="contained"
           color="primary"
           type="submit"
           className="w-full"
+          disabled={loading}
         >
           Submit
         </Button>

@@ -7,26 +7,16 @@ const axiosInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
-
 axiosInstance.interceptors.request.use(
-  (request) => {
-    // console.log('Starting Request', JSON.stringify(request, null, 2));
-    return request;
+  (config) => {
+    // Retrieve the token from wherever you store it (e.g., Redux store, localStorage, etc.)
+    const token = localStorage.getItem("token");
+    // If the token exists, set it to the Authorization header
+    if (token) config.headers["Authorization"] = `Token ${token}`;
+
+    return config;
   },
   (error) => {
-    console.error("Request Error:", error);
-
-    return Promise.reject(error);
-  }
-);
-
-axiosInstance.interceptors.response.use(
-  (response) => {
-    // console.log('Response:', JSON.stringify(response, null, 2));
-    return response;
-  },
-  (error) => {
-    console.error("Response Error:", error);
     return Promise.reject(error);
   }
 );

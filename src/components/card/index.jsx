@@ -6,12 +6,10 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-export const MediaCard = ({ title, content, author }) => (
-  <Grid item xs={12} sm={6}>
+export const MediaCard = ({ title, content, actionButtons }) => (
+  <Grid item xs={12} sm={6} md={4} lg={3}>
     <Card
-      sx={{
-        width: "200px",
-        height: "250px",
+      style={{
         borderRadius: "md",
         boxShadow: "lg",
         p: 2,
@@ -44,6 +42,9 @@ export const MediaCard = ({ title, content, author }) => (
         <Typography
           variant="body2"
           sx={{
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 4,
             fontSize: "14px",
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -51,7 +52,6 @@ export const MediaCard = ({ title, content, author }) => (
         >
           {content}
         </Typography>
-        <Typography variant="body2">{author}</Typography>
       </CardContent>
       <CardActions
         sx={{
@@ -59,6 +59,7 @@ export const MediaCard = ({ title, content, author }) => (
         }}
       >
         <Button size="small">Learn More</Button>
+        {actionButtons}
       </CardActions>
     </Card>
   </Grid>
