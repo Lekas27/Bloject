@@ -1,12 +1,14 @@
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
+import {
+  Grid,
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+} from "@mui/material";
+import { Link } from "react-router-dom";
 
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-
-export const MediaCard = ({ title, content, actionButtons }) => (
+export const MediaCard = ({ id, title, content, actionButtons }) => (
   <Grid item xs={12} sm={6} md={4} lg={3}>
     <Card
       style={{
@@ -58,7 +60,9 @@ export const MediaCard = ({ title, content, actionButtons }) => (
           justifyContent: "center",
         }}
       >
-        <Button size="small">Learn More</Button>
+        <Button size="small">
+          <Link to={`/blogs/${id}`}>Learn More</Link>
+        </Button>
         {actionButtons}
       </CardActions>
     </Card>

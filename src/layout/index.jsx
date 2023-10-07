@@ -3,6 +3,7 @@ import { Button, Drawer, List, ListItem, ListItemText } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
 import { Menu as MenuIcon, Book as BlogIcon } from "@mui/icons-material";
 import { UserContext } from "../contexts/UserContext";
+import { Footer } from "../components/footer";
 
 export const AppLayout = () => {
   const { user, handleUserLogout } = useContext(UserContext);
@@ -42,7 +43,7 @@ export const AppLayout = () => {
             <NavLink to="/" className={handleLinkClassName}>
               <Button>Home</Button>
             </NavLink>
-            <NavLink to="/blog" className={handleLinkClassName}>
+            <NavLink to="/blogs" className={handleLinkClassName}>
               <Button>Blog</Button>
             </NavLink>
             <NavLink to="/createpost" className={handleLinkClassName}>
@@ -74,7 +75,7 @@ export const AppLayout = () => {
                 <ListItemText primary="Home" />
               </ListItem>
             </NavLink>
-            <NavLink to="/blog" className={handleLinkClassName}>
+            <NavLink to="/blogs" className={handleLinkClassName}>
               <ListItem>
                 <ListItemText primary="Blog" />
               </ListItem>
@@ -98,6 +99,7 @@ export const AppLayout = () => {
       </Drawer>
 
       <Outlet />
+      <Footer />
     </>
   );
 };

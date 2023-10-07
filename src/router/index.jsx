@@ -6,6 +6,7 @@ import { CreatePost } from "../pages/createpost";
 import { Blog } from "../pages/blog";
 import { SignUp } from "../pages/auth/sign-up";
 import { LogIn } from "../pages/auth/log-in";
+import { SingleBlog } from "../pages/single-blog";
 
 export const AppRouter = () => {
   const router = createBrowserRouter([
@@ -19,7 +20,8 @@ export const AppRouter = () => {
           exact: true,
         },
         { path: "createpost", element: <CreatePost /> },
-        { path: "blog", element: <Blog /> },
+        { path: "blogs", element: <Blog /> },
+        { path: "blogs/:id", element: <SingleBlog /> },
       ],
     },
 
